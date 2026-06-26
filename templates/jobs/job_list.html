@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse Jobs - JobBoard{% endblock %}
+{% block meta_description %}
+Browse latest job openings. Filter by location,job type. Apply now!
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        
+        <form method="GET" class="row g-2 mb-4">
+    <!-- Job Type Filter -->
+    <div class="col-md-4">
+        <select name="job_type" class="form-select">
+            <option value="">All Job Types</option>
+            <option value="full_time" {% if job_type == 'full_time' %}selected{% endif %}>Full Time</option>
+            <option value="part_time" {% if job_type == 'part_time' %}selected{% endif %}>Part Time</option>
+            <option value="contract"  {% if job_type == 'contract'  %}selected{% endif %}>Contract</option>
+            <option value="internship"{% if job_type == 'internship'%}selected{% endif %}>Internship</option>
+        </select>
+    </div>
+
+
+    <!-- Location Filter -->
+    <div class="col-md-4">
+        <input type="text"
+               name="location"
+               class="form-control"
+               placeholder="Filter by location..."
+               value="{{ location|default:'' }}">
+    </div>
+
+    <!-- Buttons -->
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a href="{% url 'job_list' %}" class="btn btn-outline-secondary ms-2">Clear</a>
+    </div>
+        </form>
+
+        <!-----HTMX Search Bar-->
+        <input type="text"
+        name="q"
+        class="form-control mb-4"
+        placeholder="search jobs...."
+        hx-get="{% url 'job_search' %}"
+        hx-trigger="keyup changed delay:300ms"
+        hx-target="#job-results"
+        hx-indicator="#loading">
+        <p id="loading" class="htmx-indicator text-muted">
+            Searching...
+        </p>
+
+     
+
+    <div id="job-results">
+        {% include 'jobs/job_cards.html' %}
+    </div>
+   <!-- Pagination ↓ -->
+{% if page_obj.has_other_pages %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+
+        <!-- Previous Button -->
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" 
+                   href="?page={{ page_obj.previous_page_number }}">
+                    Previous
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+        {% endif %}
+
+        <!-- Page Numbers -->
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">
+                        {{ num }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Next Button -->
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="?page={{ page_obj.next_page_number }}">
+                    Next
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
+
+    </div>
+</div>
+{% endblock %}

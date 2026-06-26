@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Job{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h2 class="mb-4">Update — {{ job.title }}</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Update Job</button>
+                    <a href="{% url 'my_posts' %}" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

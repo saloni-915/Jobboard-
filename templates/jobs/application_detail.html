@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Application Detail{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body p-4">
+
+                <h3 class="mb-4">Application Detail</h3>
+
+                <!-- Candidate Profile Picture + Name -->
+                <div class="d-flex align-items-center mb-4">
+                    {% if application.applicant.profile.profile_picture %}
+                        <img src="{{ application.applicant.profile.profile_picture.url }}"
+                             width="80" height="80"
+                             class="rounded-circle me-3"
+                             style="object-fit:cover;">
+                    {% else %}
+                        <div class="rounded-circle bg-secondary me-3 d-flex align-items-center justify-content-center"
+                             style="width:80px;height:80px;">
+                            <span class="text-white fs-3">
+                                {{ application.full_name|first|upper }}
+                            </span>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h4 class="mb-1">{{ application.full_name }}</h4>
+                        <p class="text-muted mb-0">{{ application.email }}</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Candidate Info -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Phone:</strong>
+                            {{ application.phone|default:"Not provided" }}
+                        </p>
+                        <p>
+                            <strong>Bio:</strong>
+                            {{ application.bio|default:"Not provided" }}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Applied On:</strong>
+                            {{ application.applied_at|date:"d M Y" }}
+                        </p>
+                        <p>
+                            <strong>Status:</strong>
+                            {% if application.status == 'accepted' %}
+                                <span class="badge bg-success">Accepted ✅</span>
+                            {% elif application.status == 'rejected' %}
+                                <span class="badge bg-danger">Rejected ❌</span>
+                            {% elif application.status == 'reviewed' %}
+                                <span class="badge bg-info">Reviewed 👀</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Pending ⏳</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Job Info -->
+                <h5>Applied For:</h5>
+                <p>
+                    <strong>{{ application.job.title }}</strong> —
+                    {{ application.job.company.name }} |
+                    📍 {{ application.job.location }}
+                </p>
+
+                <hr>
+
+                <!-- Cover Letter -->
+                {% if application.cover_letter %}
+                    <h5>Cover Letter:</h5>
+                    <p class="text-muted">{{ application.cover_letter }}</p>
+                    <hr>
+                {% endif %}
+
+                <!-- Resume -->
+                {% if application.resume %}
+                    <h5>Resume:</h5>
+                    <a href="{{ application.resume.url }}"
+                       class="btn btn-outline-primary"
+                       target="_blank">
+                        📄 Download Resume
+                    </a>
+                    <hr>
+                {% endif %}
+
+                <!-- Accept / Reject -->
+                <div class="d-flex gap-2 mt-3">
+                    <form method="POST"
+                          action="{% url 'application_update' application.pk %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="accepted">
+                        <button type="submit" class="btn btn-success">
+                            ✅ Accept
+                        </button>
+                    </form>
+
+                    <form method="POST"
+                          action="{% url 'application_update' application.pk %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="rejected">
+                        <button type="submit" class="btn btn-danger">
+                            ❌ Reject
+                        </button>
+                    </form>
+
+                    <a href="{% url 'my_posts' %}"
+                       class="btn btn-outline-secondary">
+                        ← Back
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+asgiref==3.11.1
+Django==6.0.6
+django-environ==0.13.0
+mysqlclient==2.2.8
+pillow==12.2.0
+sqlparse==0.5.5
+whitenoise==6.12.0
+celery
+redis
+#black
+#mypy # static type checker code checker for bugs and error
+#pytest
+#pytest-django
+#django-stubs

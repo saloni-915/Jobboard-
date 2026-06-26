@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ job.title }} at {{ job.company.name }} {% endblock %}
+{% block meta_description %}
+{{ job.title }} job at {{ job.compnay.name }} in {{ job.location }}. {{ job.description|truncatewords:20 }}
+{% endblock %}
+{% block meta_keywords %}
+{{job.title}},{{ job.location }},{{ job.get_job_type_display}},jobs
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body p-4">
+
+                <!-- Company Info -->
+                <div class="d-flex align-items-center mb-4">
+                    {% if job.company.logo %}
+                     <a href="{% url 'company_profile_detail' job.company.id %}">
+                        <img src="{{ job.company.logo.url }}"
+                             width="70" height="70"
+                             class="me-3"
+                             style="object-fit:contain;">
+                             </a>
+                    {% endif %}
+                    <div>
+                        <h3>{{ job.title }}</h3>
+                        <p class="text-muted mb-0">
+                            🏢 {{ job.company.name }} |
+                            📍 {{ job.location }} |
+                            💼 {{ job.get_job_type_display }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Salary -->
+                {% if job.salary %}
+                    <p>💰 <strong>Salary:</strong> ₹{{ job.salary }}</p>
+                {% endif %}
+
+                <!-- Description -->
+                <h5>Job Description:</h5>
+                <p>{{ job.description }}</p>
+
+                <hr>
+
+                <!-- Apply Button -->
+               {% if user.is_authenticated %}
+    {% if user.profile.role == 'candidate' %}
+    
+        <a href="{% url 'job_apply' job.pk %}" class="btn btn-success">
+            Apply Now
+        </a>
+    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">
+                        Login to Apply
+                    </a>
+                {% endif %}
+
+                <a href="{% url 'job_list' %}" 
+                   class="btn btn-outline-secondary ms-2">
+                    Back to Jobs
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

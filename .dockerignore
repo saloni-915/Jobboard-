@@ -1,0 +1,10 @@
+jobboard-env/
+__pycache__/
+*.pyc 
+.env
+db.sqlite3
+media/
+staticfiles/
+.git/
+.gitignore
+*.md 

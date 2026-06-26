@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <!-- Profile Card -->
+        <div class="card shadow mb-4">
+            <div class="card-body p-4">
+
+                <!-- Header -->
+                <div class="d-flex align-items-center mb-4">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}"
+                             width="100" height="100"
+                             class="rounded-circle me-4"
+                             style="object-fit:cover;">
+                    {% else %}
+                        <div class="rounded-circle bg-primary me-4 d-flex align-items-center justify-content-center"
+                             style="width:100px;height:100px;">
+                            <span class="text-white" style="font-size:2rem;">
+                                {{ request.user.username|first|upper }}
+                            </span>
+                        </div>
+                    {% endif %}
+                     
+                    <div>
+                        <h3 class="mb-1">{{ request.user.username }}</h3>
+                        <p class="text-muted mb-1">{{ request.user.email }}</p>
+                        <p class="text-muted mb-1">📞 {{ profile.phone|default:"Phone not set" }}</p>
+                        <span class="badge bg-primary">Candidate</span>
+                        <!-- <span class="badge bg-success">{{ profile.experience_years }} Years Exp.</span> -->
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                {% if profile.bio %}
+                    <p class="text-muted">{{ profile.bio }}</p>
+                {% endif %}
+
+                <!-- Skills -->
+             
+                <!-- Resume -->
+              {% if profile.resume %}
+                    <a href="{{ profile.resume.url }}"
+                       class="btn btn-outline-primary btn-sm"
+                       target="_blank">
+                        📄 Download Resume
+                    </a>
+                {% endif %}
+
+                <!-- Social Links -->
+               {% if profile.linkedin_url %}
+                    <a href="{{ profile.linkedin_url }}"
+                       class="btn btn-outline-primary btn-sm ms-2"
+                       target="_blank">
+                        LinkedIn
+                    </a>
+                {% endif %}
+                {% if profile.github_url %}
+                    <a href="{{ profile.github_url }}"
+                       class="btn btn-outline-dark btn-sm ms-2"
+                       target="_blank">
+                        GitHub
+                    </a>
+                {% endif %} 
+
+                <hr>
+
+                <!-- Quick Links -->
+                <a href="{% url 'my_applications' %}"
+                   class="btn btn-outline-primary btn-sm">
+                    My Applications
+                </a>
+
+            </div>
+                <div class="d-flex justify-content-between align-items-start w-100">
+        </div>
+    
+            <a href="{% url 'profile_update' %}" class="btn btn-outline-secondary btn-sm">
+    ✏️ Edit
+</a>
+</div>
+
+       
+</div>
+{% endblock %}

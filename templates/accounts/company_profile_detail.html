@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <h2 class="mb-4">{{ company.name }}</h2>
+
+            <div class="row">
+                <div class="col-md-3 text-center">
+
+                    {% if company.logo %}
+                        <img src="{{ company.logo.url }}"
+                             class="img-fluid rounded"
+                             style="max-height:150px;">
+                    {% endif %}
+
+                </div>
+
+                <div class="col-md-9">
+
+                    <p>
+                        <strong>Industry:</strong>
+                        {{ company.get_industry_display }}
+                    </p>
+
+                    <p>
+                        <strong>Company Size:</strong>
+                        {{ company.company_size }}
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        {{ company.location }}
+                    </p>
+
+                    {% if company.website %}
+                    <p>
+                        <strong>Website:</strong>
+                        <a href="{{ company.website }}" target="_blank">
+                            {{ company.website }}
+                        </a>
+                    </p>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>About Company</h4>
+
+            <p>
+                {{ company.description }}
+            </p>
+
+            <hr>
+
+            <h4>
+                Open Jobs ({{ jobs.count }})
+            </h4>
+
+            {% for job in jobs %}
+
+                <div class="border rounded p-3 mb-3">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h5>{{ job.title }}</h5>
+
+                            <small>
+                                {{ job.get_job_type_display }}
+                                |
+                                {{ job.location }}
+                            </small>
+
+                        </div>
+
+                        <div>
+
+                            <a href="{% url 'job_detail' job.id %}"
+                               class="btn btn-primary btn-sm">
+                                View Job
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p>No jobs available.</p>
+
+            {% endfor %}
+
+            <a href="{% url 'job_list' %}"
+               class="btn btn-secondary">
+                Back to Jobs
+            </a>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

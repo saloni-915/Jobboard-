@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--SEO Meta Tags-->
+    <meta name="description"
+    content="{% block meta_description %} Find your dream job on JobBoard - browse jobs,apply,and get hired {% endblock %}">
+    <meta name="keywords"
+    content="{% block meta_keywords %}jobs,hiring,careers,internship,jobboard{% endblock %}">
+    <title>{% block title %}JobBoard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">💼 JobBoard</a>
+            <div class="navbar-nav ms-auto">
+
+                {% if user.is_authenticated %}
+
+                    {% if user.profile.role == 'company' %}
+                        <!-- Company Links -->
+                        <a class="nav-link" href="{% url 'job_create' %}">📝 Post a Job</a>
+                        <a class="nav-link" href="{% url 'my_posts' %}">📋 My Posts</a>
+
+                    {% elif user.profile.role == 'candidate' %}
+                        <!-- Candidate Links -->
+                        <a class="nav-link" href="{% url 'my_applications' %}">My Applications</a>
+
+                    {% endif %}
+
+                    <!-- Profile Link — role ke hisaab se alag page -->
+                    {% if user.profile.role == 'company' %}
+                        <a class="nav-link" href="{% url 'company_profile' %}">
+                            {% if user.profile.profile_picture %}
+                                <img src="{{ user.profile.profile_picture.url }}"
+                                     class="rounded-circle me-1"
+                                     width="30" height="30"
+                                     style="object-fit:cover;">
+                            {% endif %}
+                            {{ user.username }}
+                        </a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'profile' %}">
+                            {% if user.profile.profile_picture %}
+                                <img src="{{ user.profile.profile_picture.url }}"
+                                     class="rounded-circle me-1"
+                                     width="30" height="30"
+                                     style="object-fit:cover;">
+                            {% endif %}
+                            {{ user.username }}
+                        </a>
+                    {% endif %}
+                  <!---Notification Icon-->
+                   <a class="nav-link position-relative" href="{% url 'notifications' %}">
+                        🔔
+                        {% if unread_notifications > 0 %}
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                  style="font-size:10px;">
+                                {{ unread_notifications }}
+                            </span>
+                        {% endif %}
+                    </a>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+
+                {% else %}
+                    <!-- Not logged in -->
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Content -->
+    <main class="container mt-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

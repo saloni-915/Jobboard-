@@ -1,0 +1,81 @@
+# name: CI Pipeline
+# on:
+#   pull_request:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   lint-and-test:
+#     name: Lint, Type Check & Test
+#     runs-on: ubuntu-latest
+
+#     services:
+#       db:
+#        image: mysql:8.0
+#        env:
+#         MYSQL_DATABASE: jobboard_test
+#         MYSQL_ROOT_PASSWORD: password@123
+#         MYSQL_USER: jobuser
+#         MYSQL_PASSWORD: jobpass
+
+
+#        ports:
+#         - 3306:3306
+#        options: >-
+#           --health-cmd="mysqladmin ping -h localhost -u root -ppassword@123"
+#           --health-interval=10s
+#           --health-timeout=5s
+#           --health-retries=5
+
+#       redis:
+#          image: redis:7-alpine
+#          ports:
+#            - 6379:6379
+
+#          options: >-
+#           --health-cmd="redis-cli ping"
+#           --health-interval=10s
+#           --health-timeout=3s
+#           --health-retries=3
+#     env:
+#       SECRET_KEY: test-secret-key
+#       DEBUG: "True"
+#       ALLOWED_HOSTS: localhost,127.0.0.1
+#       DB_NAME: jobboard_test
+#       DB_USER: jobuser
+#       DB_PASSWORD: jobpass
+#       DB_HOST: 127.0.0.1
+#       DB_PORT: 3306
+
+#       CELERY_BROKER_URL: redis://localhost:6379/0
+  
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Setup Python 3.11
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: "3.13.7"
+#           cache: "pip"
+
+#       - name: Install dependencies
+#         run: |
+#           pip install --upgrade pip
+#           pip install -r requirements.txt
+
+#       - name: Run migrations
+#         run: python manage.py migrate   
+
+#       - name: Black format check
+#         run: black --check .
+          
+
+     
+
+#       - name: Mypy
+#         run: mypy .
+#         continue-on-error: true
+
+#       - name: Run tests
+#         run: pytest --tb=short -q
