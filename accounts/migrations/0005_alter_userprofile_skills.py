@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0004_notification_application'),
+        ("accounts", "0004_notification_application"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='skills',
+            model_name="userprofile",
+            name="skills",
             field=models.CharField(blank=True, max_length=500),
         ),
     ]
