@@ -7,8 +7,8 @@ sqlparse==0.5.5
 whitenoise==6.12.0
 celery
 redis
-#black
-#mypy # static type checker code checker for bugs and error
-#pytest
-#pytest-django
-#django-stubs
+black
+mypy # static type checker code checker for bugs and error
+pytest
+pytest-django
+django-stubs
