@@ -7,14 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0003_notification'),
-        ('jobs', '0004_company_company_size_company_founded_year_and_more'),
+        ("accounts", "0003_notification"),
+        ("jobs", "0004_company_company_size_company_founded_year_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='notification',
-            name='application',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='jobs.application'),
+            model_name="notification",
+            name="application",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="jobs.application",
+            ),
         ),
     ]

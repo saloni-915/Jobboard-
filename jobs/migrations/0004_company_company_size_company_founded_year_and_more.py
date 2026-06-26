@@ -6,28 +6,51 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('jobs', '0003_application_bio_application_email_and_more'),
+        ("jobs", "0003_application_bio_application_email_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='company',
-            name='company_size',
-            field=models.CharField(blank=True, choices=[('1-10', '1-10'), ('11-50', '11-50'), ('51-200', '51-200'), ('201-500', '201-500'), ('500+', '500+')], max_length=20),
+            model_name="company",
+            name="company_size",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("1-10", "1-10"),
+                    ("11-50", "11-50"),
+                    ("51-200", "51-200"),
+                    ("201-500", "201-500"),
+                    ("500+", "500+"),
+                ],
+                max_length=20,
+            ),
         ),
         migrations.AddField(
-            model_name='company',
-            name='founded_year',
+            model_name="company",
+            name="founded_year",
             field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='company',
-            name='industry',
-            field=models.CharField(blank=True, choices=[('technology', 'Technology'), ('finance', 'Finance'), ('healthcare', 'Healthcare'), ('education', 'Education'), ('ecommerce', 'E-Commerce'), ('manufacturing', 'Manufacturing'), ('consulting', 'Consulting'), ('other', 'Other')], max_length=50),
+            model_name="company",
+            name="industry",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("technology", "Technology"),
+                    ("finance", "Finance"),
+                    ("healthcare", "Healthcare"),
+                    ("education", "Education"),
+                    ("ecommerce", "E-Commerce"),
+                    ("manufacturing", "Manufacturing"),
+                    ("consulting", "Consulting"),
+                    ("other", "Other"),
+                ],
+                max_length=50,
+            ),
         ),
         migrations.AddField(
-            model_name='company',
-            name='location',
+            model_name="company",
+            name="location",
             field=models.TextField(blank=True),
         ),
     ]

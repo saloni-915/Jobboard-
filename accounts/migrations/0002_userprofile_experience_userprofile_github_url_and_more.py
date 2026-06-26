@@ -6,28 +6,44 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ("accounts", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='experience',
+            model_name="userprofile",
+            name="experience",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='github_url',
+            model_name="userprofile",
+            name="github_url",
             field=models.URLField(blank=True),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='linkedin_url',
+            model_name="userprofile",
+            name="linkedin_url",
             field=models.URLField(blank=True),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='skills',
-            field=models.CharField(blank=True, choices=[('python', 'Python'), ('django', 'Django'), ('flask', 'Flask'), ('fastapi', 'FastAPI'), ('react', 'React'), ('javascript', 'JavaScript'), ('sql', 'SQL'), ('mysql', 'MySQL'), ('postgresql', 'PostgreSQL'), ('docker', 'Docker'), ('git', 'Git')], max_length=100),
+            model_name="userprofile",
+            name="skills",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("python", "Python"),
+                    ("django", "Django"),
+                    ("flask", "Flask"),
+                    ("fastapi", "FastAPI"),
+                    ("react", "React"),
+                    ("javascript", "JavaScript"),
+                    ("sql", "SQL"),
+                    ("mysql", "MySQL"),
+                    ("postgresql", "PostgreSQL"),
+                    ("docker", "Docker"),
+                    ("git", "Git"),
+                ],
+                max_length=100,
+            ),
         ),
     ]

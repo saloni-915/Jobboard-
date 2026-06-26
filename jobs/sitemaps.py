@@ -8,11 +8,9 @@ class JobSitemap(Sitemap):
 
     def items(self):
         return Job.objects.filter(is_approved=True)
-    
 
-    def lastmod(self,obj):
+    def lastmod(self, obj):
         return obj.updated_at
-    
 
     def location(self, obj):
-        return f'/job/{obj.pk}/'
+        return f"/job/{obj.pk}/"

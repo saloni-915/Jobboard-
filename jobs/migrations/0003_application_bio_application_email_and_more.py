@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('jobs', '0002_application_resume'),
+        ("jobs", "0002_application_resume"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='application',
-            name='bio',
+            model_name="application",
+            name="bio",
             field=models.TextField(blank=True),
         ),
         migrations.AddField(
-            model_name='application',
-            name='email',
+            model_name="application",
+            name="email",
             field=models.EmailField(blank=True, max_length=254),
         ),
         migrations.AddField(
-            model_name='application',
-            name='full_name',
+            model_name="application",
+            name="full_name",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AddField(
-            model_name='application',
-            name='phone',
+            model_name="application",
+            name="phone",
             field=models.CharField(blank=True, max_length=15),
         ),
     ]
