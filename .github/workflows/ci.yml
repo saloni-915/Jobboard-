@@ -48,6 +48,7 @@ jobs:
       DB_PORT: 3306
 
       CELERY_BROKER_URL: redis://localhost:6379/0
+      CELERY_RESULT_BACKEND: redis://localhost:6379/0
 
       EMAIL_HOST: smtp.gmail.com
       EMAIL_PORT: 587
@@ -67,7 +68,7 @@ jobs:
           cache: "pip"
 
       - name: Install dependencies
-        run: |
+        run: 
           pip install --upgrade pip
           pip install -r requirements.txt
 
