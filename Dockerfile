@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# requarement.txt copy
-COPY requarements.txt .
+# requirements.txt copy
+COPY requirements.txt .
 
 # Python packages install karo
-RUN pip install --no-cache-dir -r requarements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # project code copy karo
 COPY . .
