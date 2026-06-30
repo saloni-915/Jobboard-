@@ -1,33 +1,38 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Post a Job{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-7">
-        <div class="card shadow">
-            <div class="card-body p-4">
-                <h2 class="mb-4">📝 Post a New Job</h2>
 
-                <form method="POST">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="mb-3">
-                            <label class="form-label">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.errors %}
-                                <div class="text-danger small">
-                                    {{ field.errors.0 }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <button type="submit" class="btn btn-primary w-100">
-                        Post Job
-                    </button>
-                </form>
-            </div>
+<link rel="stylesheet" href="{% static 'css/job_post.css' %}">
+<div class="job-page">
+    <div class="job-card">
+
+        <div class="job-header">
+            <h2>Post a New Job</h2>
+            <p>Fill in the details to publish your job listing</p>
         </div>
+
+        <form method="POST" class="job-form">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+
+                {% if field.errors %}
+                    <small class="error-text">{{ field.errors.0 }}</small>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-btn">
+                Publish Job
+            </button>
+        </form>
+
     </div>
 </div>
+
 {% endblock %}

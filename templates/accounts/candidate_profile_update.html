@@ -31,11 +31,32 @@
 
                     <!-- Profile Picture -->
                     <div class="mb-3">
-                        <label class="form-label">Profile Picture</label>
-                        <input type="file"
-                               name="profile_picture"
-                               class="form-control"
-                               accept="image/*">
+                         <label class="form-label">Profile Picture</label>
+
+    {% if profile.profile_picture %}
+        <div class="mb-2">
+            <img src="{{ profile.profile_picture.url }}"
+                 width="120"
+                 class="img-thumbnail">
+
+            <div class="form-check mt-2">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="remove_profile_picture"
+                       id="removeProfilePicture">
+
+                <label class="form-check-label"
+                       for="removeProfilePicture">
+                    Remove Profile Picture
+                </label>
+            </div>
+        </div>
+    {% endif %}
+
+    <input type="file"
+           name="profile_picture"
+           class="form-control"
+           accept="image/*">
                     </div>
  
 

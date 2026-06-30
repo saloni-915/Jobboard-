@@ -1,88 +1,89 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Company Profile{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
 
-        <!-- Company Card -->
-        <div class="card shadow mb-4">
-            <div class="card-body p-4">
+<link rel="stylesheet" href="{% static 'css/company_profile.css' %}">
 
-                <!-- Header -->
-                <div class="d-flex align-items-center mb-4">
-                    {% if request.user.company.logo %}
-                        <img src="{{ company.logo.url }}"
-                             width="100" height="100"
-                             class="rounded me-4"
-                             style="object-fit:contain;">
-                    {% else %}
-                        <div class="rounded bg-secondary me-4 d-flex align-items-center justify-content-center"
-                             style="width:100px;height:100px;">
-                            <span class="text-white" style="font-size:2rem;">
-                                {{ company.name|first|upper }}
-                            </span>
-                        </div>
-                    {% endif %}
-                    <div class="d-flex justify-content-between align-items-start w-100">
-                    <div>
-                        
-                           
-                      
-                        <h3 class="mb-1">{{ request.user.company.name }}</h3>  
-                        <p class="text-muted mb-1">{{ request.user.email }}</p>
-                        {% if company.website %}
-                            <a href="{{ request.user.company.website }}"
-                               target="_blank"
-                               class="btn btn-outline-primary btn-sm">
-                                🌐 Website
-                            </a>
-                        {% endif %}
-                        <span class="badge bg-success ms-2">Company</span>
-                        </div>
+<div class="profile-wrapper">
 
-                </div>
-   <a href="{% url 'company_update_profile' %}" class="btn btn-outline-secondary btn-sm">
-    ✏️ Edit
-</a>
-  </div>
-                <!-- Description -->
-                {% if company.description %}
-                    <p class="text-muted">{{ request.user.company.description }}</p>
+    <div class="profile-card">
+
+        <!-- HEADER -->
+        <div class="profile-header">
+
+            <div class="logo-box">
+                {% if request.user.company.logo %}
+                    <img src="{{ request.user.company.logo.url }}" alt="logo">
+                {% else %}
+                    <div class="logo-fallback">
+                        {{ request.user.company.name|first|upper }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="company-info">
+                <h2>{{ request.user.company.name }}</h2>
+                <p>{{ request.user.email }}</p>
+
+                {% if request.user.company.website %}
+                    <a href="{{ request.user.company.website }}" target="_blank" class="website-btn">
+                        Visit Website
+                    </a>
                 {% endif %}
 
-                <!-- Company Stats -->
-                <div class="row text-center mt-3">
-                    <div class="col-md-4">
-                        <h4>{{ company.total_jobs }}</h4>
-                        <p class="text-muted small">Total Jobs Posted</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>{{ company.approved_jobs_count }}</h4>
-                        <!-- <h4>{{ approved_jobs_count }}</h4> -->
-                        <p class="text-muted small">Approved Jobs</p>
-                    </div>
-                     <div class="col-md-4">
-                        <h4>{{ company.location|default:"N/A" }}</h4>
-                        <p class="text-muted small">Location</p>
-                    </div> 
-                </div>
-
-                <hr>
-
-                <!-- Quick Links -->
-                <a href="{% url 'my_posts' %}"
-                   class="btn btn-outline-primary btn-sm">
-                    My Posts
-                </a>
-                <a href="{% url 'job_create' %}"
-                   class="btn btn-primary btn-sm ms-2">
-                    + Post New Job
-                </a>
-
+                <span class="badge">Company</span>
             </div>
+
+            <div class="actions">
+                <a href="{% url 'company_update_profile' %}" class="edit-btn">Edit Profile</a>
+            </div>
+
         </div>
 
-       
+        <!-- DESCRIPTION -->
+        {% if request.user.company.description %}
+        <div class="section">
+            <h3>About Company</h3>
+            <p>{{ request.user.company.description }}</p>
+        </div>
+        {% endif %}
+
+        <!-- STATS -->
+        <div class="stats-grid">
+
+            <div class="stat-box">
+                <h3>{{ company.total_jobs }}</h3>
+                <p>Total Jobs</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>{{ company.approved_jobs_count }}</h3>
+                <p>Approved Jobs</p>
+            </div>
+
+            <div class="stat-box">
+                <h3>{{ company.location|default:"N/A" }}</h3>
+                <p>Location</p>
+            </div>
+
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="bottom-actions">
+
+            <a href="{% url 'my_posts' %}" class="btn secondary">
+                My Posts
+            </a>
+
+            <a href="{% url 'job_create' %}" class="btn primary">
+                + Post Job
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}

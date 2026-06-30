@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+
+
 from django.contrib import messages
-from .forms import RegisterForm, ProfileUpdateForm, CompanyForm
-from .models import UserProfile
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
+
 from jobs.models import Application, Company, Job
-from django.core.mail import send_mail
+
+from .forms import CompanyForm, ProfileUpdateForm, RegisterForm
 from .tasks import send_welcome_email
 
 
@@ -25,7 +28,7 @@ def register_view(request):
             send_welcome_email.delay(user.username, user.email)
 
             messages.success(
-                request, f"Welcome {user.username}! Account Created successfully!"
+                request, f"Welcome {user.first_name}! Account Created successfully!"
             )
 
             return redirect("job_list")
@@ -46,12 +49,11 @@ def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            messages.success(request, f"Welcome back,{user.username}!")
+            messages.success(request, f"Welcome back,{user.first_name}!")
             next_url = request.GET.get("next", "job_list")
             return redirect(next_url)
         else:
@@ -61,9 +63,10 @@ def login_view(request):
 
 
 # -------logout view--------
+@require_POST
 def logout_view(request):
     logout(request)
-    messages.info(request, "Logged out successfully!")
+    messages.success(request, "Logged out successfully!")
     return redirect("login")
 
 
@@ -104,7 +107,7 @@ def CompanyProfile_view(request):
 
     try:
         company = request.user.company
-    except:
+    except Company.DoesNotExist:
         return redirect("company_create")
     if request.method == "POST":
         form = CompanyForm(
@@ -157,7 +160,7 @@ def CompanyProfileUpdate_view(request):
 
     try:
         company = request.user.company
-    except:
+    except Company.DoesNotExist:
         return redirect("company_create")
     if request.method == "POST":
         form = CompanyForm(
@@ -166,7 +169,6 @@ def CompanyProfileUpdate_view(request):
             instance=company,  # don't create new profile update old profile
         )
         if form.is_valid():
-
             form.save()
             messages.success(request, "Profile updated!")
             return redirect("company_profile")
@@ -210,6 +212,14 @@ def profile_update(request):
             instance=profile,  # don't create new profile update old profile
         )
         if form.is_valid():
+
+            if request.POST.get("remove_profile_picture"):
+                profile.profile_picture.delete(save=False)
+                profile.profile_picture = None
+
+            if request.POST.get("remove_resume"):
+                profile.resume.delete(save=False)
+                profile.resume = None
             form.save()
             messages.success(request, "Profile updated!")
             return redirect("profile")

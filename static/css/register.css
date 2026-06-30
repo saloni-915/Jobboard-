@@ -1,0 +1,158 @@
+body{
+
+    background:linear-gradient(135deg,#eef2ff,#dbeafe,#f8fafc);
+    min-height:100vh;
+
+}
+
+/* Wrapper */
+
+.register-wrapper{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:90vh;
+    padding:30px;
+
+}
+
+/* Card */
+
+.register-card{
+
+    width:100%;
+    max-width:520px;
+
+    background:rgba(255,255,255,.75);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+    padding:40px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.12);
+
+}
+
+/* Heading */
+
+.register-card h2{
+
+    font-weight:700;
+    color:#1e293b;
+
+}
+
+.register-card p{
+
+    font-size:15px;
+
+}
+
+/* Labels */
+
+.form-label{
+
+    font-weight:600;
+    margin-bottom:7px;
+
+}
+
+/* Inputs */
+
+.form-control,
+select{
+
+    width:100%;
+
+    border-radius:12px;
+
+    border:1px solid #d1d5db;
+
+    padding:12px 14px;
+
+    transition:.3s;
+
+    box-shadow:none;
+
+}
+
+/* Focus */
+
+.form-control:focus,
+select:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
+
+/* Button */
+
+.register-btn{
+
+    margin-top:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.register-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+
+}
+
+/* Login */
+
+.login-link{
+
+    margin-top:22px;
+
+    text-align:center;
+
+}
+
+.login-link a{
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    color:#2563eb;
+
+}
+
+.login-link a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* Errors */
+
+.text-danger{
+
+    font-size:13px;
+
+}

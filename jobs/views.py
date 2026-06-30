@@ -1,12 +1,15 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Job, Company, Application
-from django.contrib.auth.decorators import login_required
-from accounts.forms import CompanyForm
-from .forms import JobForm, ApplicationForm
 from django.contrib import messages
-from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+
+from accounts.forms import CompanyForm
 from accounts.models import Notification
+
+from .forms import ApplicationForm, JobForm
+from .models import Application, Company, Job
 
 
 # Create your views here.
@@ -59,7 +62,7 @@ def job_create(request):
     try:
         company = request.user.company
 
-    except:
+    except Company.DoesNotExist:
         return redirect("company_create")
     if request.method == "POST":
         form = JobForm(request.POST)
@@ -83,7 +86,7 @@ def my_posts(request):
 
     try:
         company = request.user.company
-    except:
+    except Company.DoesNotExist:
         return redirect("company_create")
 
     jobs = Job.objects.filter(company=company).prefetch_related("applications")
@@ -248,9 +251,6 @@ def notifications(request):
         "accounts/notifications.html",
         {"notifs": notifs, "unread_count": unread_count},
     )
-
-
-from django.http import HttpResponse
 
 
 def robots_txt(request):

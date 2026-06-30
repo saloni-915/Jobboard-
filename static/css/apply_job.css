@@ -1,0 +1,134 @@
+/* Background */
+.apply-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 40px 15px;
+    background: linear-gradient(135deg, #eef2f3, #dfe9f3);
+    font-family: Arial, sans-serif;
+}
+
+/* Card */
+.apply-card {
+    width: 100%;
+    max-width: 650px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.apply-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #111;
+}
+
+.apply-header p {
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Form */
+.apply-form {
+    margin-top: 20px;
+}
+
+/* Form group */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Inputs */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+    background: #fafafa;
+}
+
+/* Focus */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #4f46e5;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+}
+
+/* Error */
+.error-text {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Primary */
+.btn.primary {
+    background: #4f46e5;
+    color: white;
+    border: none;
+}
+
+.btn.primary:hover {
+    background: #3730a3;
+}
+
+/* Outline */
+.btn.outline {
+    border: 1px solid #4f46e5;
+    color: #4f46e5;
+    background: transparent;
+}
+
+.btn.outline:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+/* Full width */
+.full {
+    width: 100%;
+}
+
+/* spacing */
+.mt {
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .apply-card {
+        padding: 20px;
+    }
+}

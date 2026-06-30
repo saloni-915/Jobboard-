@@ -12,7 +12,7 @@ def send_welcome_email(username, user_email):
 
     send_mail(
         "Welcome to Job Board!",
-        f"hii {username},your account has been created successfully.",
+        f"Hi {username}, your account has been created successfully.",
         None,
         [user_email],
     )

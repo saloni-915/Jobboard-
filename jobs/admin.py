@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Company, Application, Job
+
+from .models import Application, Company, Job
 
 # Register your models here.
 
