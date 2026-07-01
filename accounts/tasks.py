@@ -8,11 +8,11 @@ from django.core.mail import send_mail
     retry_backoff=True,
     retry_backoff_max=60,
 )
-def send_welcome_email(username, user_email):
+def send_welcome_email(first_name, user_email):
 
     send_mail(
         "Welcome to Job Board!",
-        f"Hi {username}, your account has been created successfully.",
+        f"Hi {first_name}, your account has been created successfully.",
         None,
         [user_email],
     )

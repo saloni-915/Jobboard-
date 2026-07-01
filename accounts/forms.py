@@ -29,10 +29,12 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs.update({
-                "class": "form-control",
-                "placeholder": field.label,
-            })
+            field.widget.attrs.update(
+                {
+                    "class": "form-control",
+                    "placeholder": field.label,
+                }
+            )
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -80,7 +82,9 @@ class CompanyForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs.update({
-                "class": "form-control",
-                "placeholder": field.label,
-            })
+            field.widget.attrs.update(
+                {
+                    "class": "form-control",
+                    "placeholder": field.label,
+                }
+            )

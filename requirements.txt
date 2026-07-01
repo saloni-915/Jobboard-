@@ -12,3 +12,4 @@ mypy # static type checker code checker for bugs and error
 pytest
 pytest-django
 django-stubs
+django-debug-toolbar==4.3.0

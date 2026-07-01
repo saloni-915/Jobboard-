@@ -1,5 +1,3 @@
-
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -25,7 +23,7 @@ def register_view(request):
             login(request, user)
             # login after register directly
 
-            send_welcome_email.delay(user.username, user.email)
+            send_welcome_email.delay(user.first_name, user.email)
 
             messages.success(
                 request, f"Welcome {user.first_name}! Account Created successfully!"

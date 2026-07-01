@@ -15,7 +15,11 @@ from .models import Application, Company, Job
 # Create your views here.
 # ---------job list---------
 def job_list(request):
-    jobs = Job.objects.filter(is_approved=True).order_by("-created_at")
+    jobs = (
+        Job.objects.filter(is_approved=True)
+        .select_related("company")
+        .order_by("-created_at")
+    )
 
     # job list filtering
     job_type = request.GET.get(
