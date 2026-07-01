@@ -16,3 +16,6 @@ def test_admin_login_page():
     client = Client()
     response = client.get("/admin/login/")
     assert response.status_code == 200
+
+
+# tests
