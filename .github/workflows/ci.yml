@@ -83,12 +83,14 @@ jobs:
             sleep 2
           done
 
-      - name: Show MySQL users and grants
+      - name: Grant privileges to jobuser
         run: |
-          mysql -h127.0.0.1 -uroot -ppassword@123 -e "
-          SELECT User, Host FROM mysql.user;
-          SHOW GRANTS FOR 'jobuser'@'%';
-          "
+        mysql -h127.0.0.1 -uroot -ppassword@123 <<EOF
+        CREATE USER IF NOT EXISTS 'jobuser'@'%' IDENTIFIED BY 'jobpass';
+        GRANT ALL PRIVILEGES ON *.* TO 'jobuser'@'%' WITH GRANT OPTION;
+        FLUSH PRIVILEGES;
+        SHOW GRANTS FOR 'jobuser'@'%';
+        EOF
 
       - name: Run migrations
         run: python manage.py migrate
