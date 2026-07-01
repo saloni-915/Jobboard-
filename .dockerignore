@@ -1,10 +1,11 @@
 jobboard-env/
 __pycache__/
-*.pyc 
+*.pyc
 .env
+.env.production
 db.sqlite3
 media/
 staticfiles/
 .git/
 .gitignore
-*.md 
+*.md

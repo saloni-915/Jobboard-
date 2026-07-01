@@ -13,3 +13,4 @@ pytest
 pytest-django
 django-stubs
 django-debug-toolbar==4.3.0
+gunicorn==21.2.0
